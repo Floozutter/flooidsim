@@ -1,11 +1,11 @@
 function love.load(arg)
 	modulename = arg[1]
-	func = require(modulename)
+	func = loadfile(modulename)()
 	t = 0
 end
 
 function love.update(dt)
-	t = t + 0.1
+	t = t + 1
 end
 	
 function love.draw()

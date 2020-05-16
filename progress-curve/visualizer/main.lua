@@ -31,7 +31,6 @@ end
 function love.draw()
 	if errstate then love.graphics.print(errmsg, 20, 20); return end
 	love.graphics.setColor(1, 1, 1, 1)
-	--love.graphics.print(modulename, t, t)
 	love.graphics.setCanvas(canvas)
 		love.graphics.circle("fill", t, func(t), 10)
 	love.graphics.setCanvas()

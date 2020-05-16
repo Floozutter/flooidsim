@@ -18,9 +18,6 @@ function love.update(dt)
 end
 	
 function love.draw()
-	if errstate then
-		love.graphics.print(errmsg, 20, 20)
-		return
-	end
+	if errstate then love.graphics.print(errmsg, 20, 20); return end
 	love.graphics.print(modulename, t, t)
 end

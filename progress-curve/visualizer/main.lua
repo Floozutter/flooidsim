@@ -1,3 +1,33 @@
+function loadfunc(filename)
+	--[[ Loads a plottable function from a file. ]]--
+	local USAGE = (
+		"Usage: love visualizer LUAFILE\n"..
+		"LUAFILE should return a single function that "..
+		"relates a normalized time argument to normalized progress.\n\n"
+	)
+	-- Guarantee filename is a string.
+	local fntype = type(filename)
+	if fntype ~= "string" then
+		local err = "Unexpected type "..fntype.." on filename argument."
+		return nil, USAGE..err
+	end
+	-- Try loading the file as a chunk.
+	local chunk, loadfile_err = loadfile(filename)
+	if chunk == nil then  -- File failed to load as a chunk.
+		local err = "Error on loadfile "..filename..": "..loadfile_err
+		return nil, USAGE..err
+	end
+	-- Try executing the chunk to get a function.
+	local res = chunk()
+	local restype = type(res)
+	if restype ~= "function" then  -- Chunk failed to return a function.
+		local err = "Unexpected type "..restype.." on chunk execution."
+		return nil, USAGE..err
+	end
+	-- Passed all checks, return function with no error messages.
+	return res, nil
+end
+
 function reset()
 	--[[ Resets the plot. ]]--
 	-- Reset time variable.
@@ -11,19 +41,9 @@ end
 function love.load(arg)
 	-- Get Lua filename command-line argument.
 	local filename = arg[1]
-	-- Try loading the file as a chunk.
-	local chunk, err = loadfile(filename)
-	if chunk == nil then  -- Chunk failed to load.
-		errstate = true
-		errmsg = (
-			"Usage: love visualizer LUAFILE\n"..
-			"LUAFILE should return a single function that "..
-			"relates a normalized time argument to normalized progress.\n\n"..
-			"Error on loadfile "..filename..": "..err
-		)
-		return
-	end
-	func = chunk()
+	-- Try loading the file as a function.
+	func, errmsg = loadfunc(filename)
+	if func == nil then errstate = true; return end
 	-- Create canvas.
 	canvas = love.graphics.newCanvas(love.graphics.getDimensions())
 	-- Set plot.

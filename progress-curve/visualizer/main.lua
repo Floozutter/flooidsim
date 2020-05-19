@@ -1,3 +1,6 @@
+local DURATION = 3  -- Plotting time in seconds.
+
+
 function loadfunc(filename)
 	--[[ Loads a plottable function from a file. ]]--
 	local USAGE = (
@@ -38,6 +41,7 @@ function reset()
 	love.graphics.setCanvas()
 end
 
+
 function love.load(arg)
 	-- Get Lua filename command-line argument.
 	local filename = arg[1]
@@ -54,16 +58,22 @@ function love.update(dt)
 	-- Handle error state.
 	if errstate then return end
 	-- Update time variable.
-	t = t + 5
+	t = t + dt/DURATION
+	if t > 1 then t = 1 end
 end
 	
 function love.draw()
 	-- Handle error state.
 	if errstate then love.graphics.print(errmsg, 20, 20); return end
-	-- Plot t, func(t) on canvas.
+	-- Plot t, func(t) on the canvas.
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.setCanvas(canvas)
-		love.graphics.circle("fill", t, func(t), 10)
+		love.graphics.circle(
+			"fill",
+			love.graphics.getWidth() * t,
+			love.graphics.getHeight() * (1 - func(t)),
+			10
+		)
 	love.graphics.setCanvas()
 	-- Draw canvas to the window.
 	love.graphics.draw(canvas)

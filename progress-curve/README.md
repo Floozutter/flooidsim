@@ -1,2 +1,2 @@
 # progress-curve
-Visualize functions that relate normalized time to normalized progress
+Visualize functions that relate normalized time to normalized progress!

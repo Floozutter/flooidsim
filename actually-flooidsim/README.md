@@ -1,2 +1,2 @@
 # flooidsim
-Pixelated fluid simulation and rendering
+Pixelated fluid simulation and rendering!

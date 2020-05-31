@@ -1,6 +1,7 @@
 local DURATION = 3  -- Plotting time in seconds.
 local RESETKEY = "space"  -- Key to reset plot.
 
+
 function loadfunc(filename)
 	--[[ Loads a plottable function from a file. ]]--
 	local USAGE = (

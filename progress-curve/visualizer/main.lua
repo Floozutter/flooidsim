@@ -1,5 +1,5 @@
 local DURATION = 3  -- Plotting time in seconds.
-
+local RESETKEY = "space"  -- Key to reset plot.
 
 function loadfunc(filename)
 	--[[ Loads a plottable function from a file. ]]--
@@ -57,6 +57,8 @@ end
 function love.update(dt)
 	-- Handle error state.
 	if errstate then return end
+	-- Check if user is holding down the reset key.
+	if love.keyboard.isDown(RESETKEY) then return end
 	-- Update time variable.
 	t = t + dt/DURATION
 	if t > 1 then t = 1 end
@@ -81,5 +83,5 @@ end
 
 function love.keypressed(key)
 	-- Reset on spacebar.
-	if key == "space" then reset() end
+	if key == RESETKEY then reset() end
 end

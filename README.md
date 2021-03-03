@@ -1,2 +1,2 @@
 # flooidsim
-Sundry simulations and various visualizations
+sundry simulations and various visualizations

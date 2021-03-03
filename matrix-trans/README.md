@@ -1,2 +1,2 @@
 # matrix-trans
-Visualize matrix transformations using an animated transition!
+visualize matrix transformations using an animated transition!

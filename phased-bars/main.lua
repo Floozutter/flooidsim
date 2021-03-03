@@ -7,7 +7,7 @@ COLOR = {
     {1, 0, 0}
 }
 VECTOR = {
-    C.new(1, 0),
+    C.new(2, 0),
     C.new(0, 1)
 }
 
@@ -18,6 +18,8 @@ end
 
 function love.update(dt)
     t = t + dt / PERIOD
+    --t = t + 0.01
+    --love.graphics.captureScreenshot(t * 100 .. ".png")
     if t >= 1 then t = t - 1 end
 end
 

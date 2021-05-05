@@ -1,3 +1,4 @@
+-- this program works when THETA < math.pi!
 THETA = math.pi / 3
 RANGE = 200
 

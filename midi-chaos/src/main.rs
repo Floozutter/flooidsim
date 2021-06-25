@@ -1,7 +1,5 @@
-use std::io::{stdin, stdout, Write};
-use std::error::Error;
-
-fn run() -> Result<(), Box<dyn Error>> {
+fn run() -> Result<(), Box<dyn std::error::Error>> {
+    use std::io::Write;
     let imidi = midir::MidiInput::new("midi-chaos midir input")?;
     // get an input port (read from console if multiple are available)
     let iports = imidi.ports();
@@ -17,9 +15,9 @@ fn run() -> Result<(), Box<dyn Error>> {
                 println!("{}: {}", i, imidi.port_name(p).unwrap());
             }
             print!("select input port: ");
-            stdout().flush()?;
+            std::io::stdout().flush()?;
             let mut input = String::new();
-            stdin().read_line(&mut input)?;
+            std::io::stdin().read_line(&mut input)?;
             iports.get(input.trim().parse::<usize>()?).ok_or("invalid input port selected")?
         }
     };
@@ -32,10 +30,10 @@ fn run() -> Result<(), Box<dyn Error>> {
     println!("connection open, reading input from `{}`...", iport_name);
     // quit on enter key press
     print!("press enter at any point to quit.");
-    stdout().flush()?;
+    std::io::stdout().flush()?;
     {
         let mut input = String::new();
-        stdin().read_line(&mut input)?;
+        std::io::stdin().read_line(&mut input)?;
     }
     println!("bye-bye! >:3c");
     Ok(())
